@@ -1,6 +1,8 @@
 /* global fetch */
 import { AsyncStorage } from 'react-native'
+
 const URL = 'https://www.thecocktaildb.com/api/json/v1/1/'
+const MAX_CACHE_AGE = 15 * (1000 * 60)
 
 const parseJSON = async str => {
   const parse = async str => JSON.parse(str)
@@ -19,7 +21,7 @@ const Cache = {
 
 const _fetch = async uri => {
   const cache = await Cache.get(uri)
-  if (cache && cache.value && (cache.age + 1000 * 60 * 60) > Date.now()) return cache.value
+  if (cache && cache.value && (cache.age + MAX_CACHE_AGE) > Date.now()) return cache.value
   const json = await fetch(URL + uri)
     .then(async res => {
       if (!res.ok) return null
