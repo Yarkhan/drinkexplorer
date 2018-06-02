@@ -38,7 +38,7 @@ const _fetch = async uri => {
 
 export const categories = () => _fetch('list.php?c=list')
   .then(({drinks}) => drinks.map(({strCategory}) => strCategory))
-
+  .catch(() => null)
 export const category = name => _fetch(`list.php?c=${encodeURIComponent(name)}`)
   .then(({drinks}) => drinks.map(drink => ({
     id: drink.idDrink,
