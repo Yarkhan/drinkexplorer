@@ -17,7 +17,10 @@ class SearchBar extends Component {
             ref={e => e && (this.searchBar = e._root)}
             onBlur={this.props.onBlur}
           />
-          <Icon name="ios-wine" />
+          <Icon
+            name="ios-close-outline"
+            onPress={() => this.searchBar.blur()}
+          />
         </Item>
         <Button transparent>
           <Text>Search</Text>
