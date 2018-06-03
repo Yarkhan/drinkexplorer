@@ -1,6 +1,20 @@
 import React from 'react'
 import { View } from 'react-native'
-import { Text, Button, List, Content, ListItem, Left, Right, Icon, Spinner, Body, Thumbnail} from 'native-base'
+import {
+  Text,
+  Button,
+  List,
+  Content,
+  ListItem,
+  Left,
+  Right,
+  Icon,
+  Spinner,
+  Body,
+  Thumbnail,
+  Card,
+  CardItem
+} from 'native-base'
 import SpinnerThumbnail from '../SpinnerThumbnail'
 const Error = props => (
   <View>
@@ -19,11 +33,29 @@ export default props => {
   if (!props.item) return <Spinner />
   return (
     <Content>
-      <SpinnerThumbnail uri={props.item.thumbnail} />
-      <Body>
-        <Text>{props.item.name}</Text>
-        <Text>{JSON.stringify(props.item)}</Text>
-      </Body>
+      <Card>
+        <CardItem header>
+          <Text>{props.item.name}</Text>
+        </CardItem>
+        <CardItem cardBody>
+          <SpinnerThumbnail uri={props.item.thumbnail} size={400} />
+          <Text>Serve: {props.item.glass}</Text>
+        </CardItem>
+        <CardItem header>
+          <Text>Instructions</Text>
+        </CardItem>
+        <CardItem>
+          <Text>{`${props.item.instructions}`}</Text>
+        </CardItem>
+        {props.item.ingredients.map(ingredient => (
+          <CardItem>
+            <SpinnerThumbnail uri={ingredient.thumbnail} />
+            <Left>
+              <Text>{`${ingredient.measure} ${ingredient.name}`}</Text>
+            </Left>
+          </CardItem>
+        ))}
+      </Card>
     </Content>
   )
 }

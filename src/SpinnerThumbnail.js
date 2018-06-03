@@ -10,13 +10,13 @@ export default class SpinnerThumbnail extends React.Component {
         <Thumbnail square
           source={{uri: this.props.uri, cache: 'force-cache'}}
           onLoad={() => this.setState({loaded: true})}
-          style={{
+          style={this.props.style || {
             width: (this.state.loaded && (this.props.size || 40)) || 0,
             height: (this.state.loaded && (this.props.size || 40)) || 0,
           }}
         />
         {!this.state.loaded && (
-          <Spinner style={{
+          <Spinner style={this.props.style || {
             width: this.props.size || 40 ,
             height: this.props.size || 40}}
           />
