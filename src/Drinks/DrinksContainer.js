@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import Categories from './Categories'
-import { categories } from '../cocktail-api'
-import { Actions } from 'react-native-router-flux'
+import Drinks from './Drinks'
+import { category } from '../cocktail-api'
 import { View } from 'react-native'
-import { Container } from 'native-base'
 import AppHeader from '../AppHeader'
-
-export default class CategoriesContainer extends Component {
+import { Container } from 'native-base'
+export default class DrinksContainer extends Component {
   state = {
     items: [],
     error: false
@@ -16,7 +14,7 @@ export default class CategoriesContainer extends Component {
   }
   async loadItems () {
     this.setState({error: false})
-    const items = await categories()
+    const items = await category(this.props.category)
     if (items) this.setState({items})
     if (!items) this.setState({error: true})
   }
@@ -24,11 +22,10 @@ export default class CategoriesContainer extends Component {
     return (
       <Container>
         <AppHeader />
-        <Categories
+        <Drinks
           items={this.state.items}
           error={this.state.error}
           loadItems={this.loadItems.bind(this)}
-          onSelect={category => Actions.drinks({category})}
         />
       </Container>
     )
