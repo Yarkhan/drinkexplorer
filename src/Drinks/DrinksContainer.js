@@ -4,6 +4,8 @@ import { category } from '../cocktail-api'
 import { View } from 'react-native'
 import AppHeader from '../AppHeader'
 import { Container } from 'native-base'
+import { Actions } from 'react-native-router-flux'
+
 export default class DrinksContainer extends Component {
   state = {
     items: [],
@@ -26,6 +28,7 @@ export default class DrinksContainer extends Component {
           items={this.state.items}
           error={this.state.error}
           loadItems={this.loadItems.bind(this)}
+          onSelect={drink => Actions.drink({id: drink.id})}
         />
       </Container>
     )
