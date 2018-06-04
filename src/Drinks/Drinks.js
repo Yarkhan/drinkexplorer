@@ -17,7 +17,8 @@ const Error = props => (
 
 export default props => {
   if (props.error) return <Error loadItems={props.loadItems} />
-  if (!props.items.length) return <Spinner />
+  if (!props.items) return <Spinner />
+  if (props.items.length === 0) return <Text>No results</Text>
   return (
     <Content>
       <FlatList

@@ -83,5 +83,9 @@ export const drink = id => _fetch(`lookup.php?i=${id}`)
   .catch(() => null)
 
 export const search = name => _fetch(`search.php?s=${encodeURIComponent(name)}`)
-  .then(({drinks}) => mapDrinks(drinks))
-  .catch(() => null)
+  .then(({drinks}) => {
+    console.log({drinks})
+    if (drinks === null) return []
+    return mapDrinks(drinks)
+  })
+  .catch(err => err)

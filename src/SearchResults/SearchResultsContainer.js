@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import Drinks from './Drinks'
-import { category } from '../cocktail-api'
+import Drinks from '../Drinks/Drinks'
+import { search } from '../cocktail-api'
 import { View } from 'react-native'
 import AppHeader from '../AppHeader'
 import { Container } from 'native-base'
 import { Actions } from 'react-native-router-flux'
 
-export default class DrinksContainer extends Component {
+export default class SearchResultsContainer extends Component {
   state = {
     items: null,
     error: false
@@ -16,9 +16,8 @@ export default class DrinksContainer extends Component {
   }
   async loadItems () {
     this.setState({error: false})
-    const items = await category(this.props.category)
-    console.log(items)
-    if (items) this.setState({items})
+    const items = await search(this.props.drink)
+    if (items !== null) this.setState({items})
     if (items === null) this.setState({error: true})
   }
   render () {

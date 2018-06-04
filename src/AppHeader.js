@@ -3,10 +3,17 @@ import PropTypes from 'prop-types'
 import {
   Header, Left, Button, Body, Right, Icon, Title, Item, Input, Text
 } from 'native-base'
+import { Actions } from 'react-native-router-flux'
 
 class SearchBar extends Component {
+  state = {
+    search: ''
+  }
   componentDidMount () {
     this.searchBar.focus()
+  }
+  search () {
+    Actions.search({drink: this.state.search})
   }
   render() {
     return (
@@ -16,11 +23,21 @@ class SearchBar extends Component {
           <Input autofocus placeholder="Search"
             ref={e => e && (this.searchBar = e._root)}
             onBlur={this.props.onBlur}
+            onChangeText={text => this.setState({search: text})}
+            onSubmitEditing={this.search.bind(this)}
+            value={this.state.search}
           />
-          <Icon
-            name="ios-close-outline"
-            onPress={() => this.searchBar.blur()}
-          />
+          {!this.state.search && (
+            <Icon
+              name="ios-close-outline"
+              onPress={() => this.searchBar.blur()}
+            />
+          ) || (
+            <Icon
+              name="ios-arrow-forward"
+              onPress={this.search.bind(this)}
+            />
+          )}
         </Item>
         <Button transparent>
           <Text>Search</Text>
