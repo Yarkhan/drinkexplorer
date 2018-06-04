@@ -32,7 +32,7 @@ const _fetch = async uri => {
     .catch(() => null)
 
   if (json) return json
-  // if (cache && cache.value) return cache.value
+  if (cache && cache.value) return cache.value
   throw new Error('request error')
 }
 
@@ -40,12 +40,14 @@ export const categories = () => _fetch('list.php?c=list')
   .then(({drinks}) => drinks.map(({strCategory}) => strCategory))
   .catch(() => null)
 
+const mapDrinks = drinks => drinks.map(drink => ({
+  id: drink.idDrink,
+  name: drink.strDrink,
+  thumbnail: drink.strDrinkThumb
+}))
+
 export const category = name => _fetch(`filter.php?c=${encodeURIComponent(name)}`)
-  .then(({drinks}) => drinks.map(drink => ({
-    id: drink.idDrink,
-    name: drink.strDrink,
-    thumbnail: drink.strDrinkThumb
-  })))
+  .then(({drinks}) => mapDrinks(drinks))
   .catch(() => null)
 
 const mapIngredients = drink => {
@@ -78,4 +80,8 @@ export const drink = id => _fetch(`lookup.php?i=${id}`)
       ingredients: mapIngredients(drink),
     })
   })
+  .catch(() => null)
+
+export const search = name => _fetch(`search.php?s=${encodeURIComponent(name)}`)
+  .then(({drinks}) => mapDrinks(drinks))
   .catch(() => null)
