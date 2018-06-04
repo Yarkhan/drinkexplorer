@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, FlatList } from 'react-native'
 import { Text, Button, List, Content, ListItem, Left, Right, Icon, Spinner, Body} from 'native-base'
 import SpinnerThumbnail from '../SpinnerThumbnail'
 
@@ -20,16 +20,18 @@ export default props => {
   if (!props.items.length) return <Spinner />
   return (
     <Content>
-      <List>
-        {props.items.map(item => (
+      <FlatList
+        data={props.items}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
           <ListItem button onPress={() => props.onSelect(item)} key={item.id}>
             <SpinnerThumbnail uri={item.thumbnail} />
             <Body>
               <Text>{item.name}</Text>
             </Body>
           </ListItem>
-        ))}
-      </List>
+        )}
+      />
     </Content>
   )
 }

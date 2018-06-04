@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, FlatList} from 'react-native'
 import { Text, Button, List, Container, Content, ListItem, Left, Right, Icon, Spinner } from 'native-base'
 
 const Error = props => (
@@ -19,14 +19,16 @@ export default props => {
   if (!props.items.length) return <Spinner />
   return (
     <Content>
-      <List>
-        {props.items.map(item => (
+      <FlatList
+        data={props.items}
+        keyExtractor={item => item}
+        renderItem={({item}) => (
           <ListItem button onPress={e => props.onSelect(item)} key={item}>
             <Left><Text>{item}</Text></Left>
             <Right><Icon name='arrow-forward' /></Right>
           </ListItem>
-        ))}
-      </List>
+        )}
+      />
     </Content>
   )
 }
