@@ -17,7 +17,6 @@ export default class DrinksContainer extends Component {
   async loadItems () {
     this.setState({error: false})
     const items = await category(this.props.category)
-    console.log(items)
     if (items) this.setState({items})
     if (items === null) this.setState({error: true})
   }
