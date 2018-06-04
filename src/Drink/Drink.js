@@ -48,7 +48,7 @@ export default props => {
           <Text>{`${props.item.instructions}`}</Text>
         </CardItem>
         {props.item.ingredients.map(ingredient => (
-          <CardItem>
+          <CardItem key={ingredient.name}>
             <SpinnerThumbnail uri={ingredient.thumbnail} />
             <Left>
               <Text>{`${ingredient.measure} ${ingredient.name}`}</Text>
