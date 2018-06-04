@@ -2,7 +2,7 @@
 import { AsyncStorage } from 'react-native'
 
 const URL = 'https://www.thecocktaildb.com/api/json/v1/1/'
-const MAX_CACHE_AGE = 60 * (1000 * 60)
+const MAX_CACHE_AGE = 24 * 60 * (1000 * 60) //a day
 
 const parseJSON = async str => {
   const parse = async str => JSON.parse(str)
